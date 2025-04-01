@@ -35,7 +35,19 @@ const ActionButton: React.FC<ActionButtonProps> = ({ action, order, patientUuid 
   const renderActionButton = () => {
     switch (action.actionName) {
       case 'add-imaging-to-work-list-modal':
-        return <OrderActionExtension order={order as unknown as Order} />;
+        return (
+          <Button
+            size="md"
+            className={styles.actionButtons}
+            onClick={() => {
+              const dispose = showModal(action?.actionName, {
+                closeModal: () => dispose(),
+                order: order,
+              });
+            }}>
+            {t('pickImagingOrder', 'Pick Imaging Order')}
+          </Button>
+        );
 
       case 'imaging-report-form':
         return (
