@@ -56,7 +56,7 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ completedOrder, order
           <div className={styles.facilityDetails}>
             <p className={styles.facilityName}>{location}</p>
             <p className={styles.facilityName}>{completedOrder?.careSetting?.name}</p>
-            <p className={styles.facilityName}>{t('kenya', 'Kenya')}</p>
+            <p className={styles.facilityName}>{t('uganda', 'Uganda')}</p>
           </div>
         </div>
         <div className={styles.printResults}>

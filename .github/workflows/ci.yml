@@ -1,4 +1,4 @@
-name: KenyaEMR CI
+name: UgandaEMR CI
 
 on:
   push:
@@ -86,12 +86,12 @@ jobs:
         run: yarn install --immutable
 
       - name: Version
-        run: yarn workspaces foreach --worktree --topological --exclude @kenyaemr/esm-orders-app version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.${{ github.run_number }}"
+        run: yarn workspaces foreach --worktree --topological --exclude @ugandaemr/esm-orders-app version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.${{ github.run_number }}"
 
       - name: Build
         run: yarn turbo run build --concurrency=5
 
-      - run: git config user.email "info@thepalladiumgroup.com" && git config user.name "KenyaEMR CI"
+      - run: git config user.email "info@thepalladiumgroup.com" && git config user.name "UgandaEMR CI"
       - run: git add . && git commit -m "Prerelease version" --no-verify
 
       - name: Pre-release

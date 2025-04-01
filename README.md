@@ -2,7 +2,7 @@
 
 ![Node.js CI](https://github.com/palladiumkenya/kenyaemr-esm-orders/actions/workflows/ci.yml/badge.svg)
 
-# KenyaEMR Orders App
+# ESM Orders App
 
 This repository contains frontend modules for the KenyaEMR 3.x. These modules relate to extension of orders. The modules within this repository include:
 

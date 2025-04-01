@@ -28,7 +28,19 @@ const ActionButton: React.FC<ActionButtonProps> = ({ action, order, patientUuid 
   };
   switch (action.actionName) {
     case 'add-procedure-to-worklist-dialog':
-      return <OrderActionExtension order={order as unknown as Order} />;
+      return (
+        <Button
+          onClick={() => {
+            const dispose = showModal(action.actionName, {
+              closeModal: () => dispose(),
+              order: order,
+            });
+          }}
+          size="md"
+          className={styles.actionButtons}>
+          {t('pickProcedureOrder', 'Pick Procedure Order')}
+        </Button>
+      );
 
     case 'postProcedureResultForm':
       return (
