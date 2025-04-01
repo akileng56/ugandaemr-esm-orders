@@ -13,7 +13,7 @@ interface PrintableReportProps {
 
 const PrintableReport: React.FC<PrintableReportProps> = ({ approvedOrders }) => {
   const { t } = useTranslation();
-  const { logo } = useConfig({ externalModuleName: '@kenyaemr/esm-login-app' });
+  const { logo } = useConfig({ externalModuleName: '@ugandaemr/esm-login-app' });
   const { sessionLocation, user } = useSession();
   const location = sessionLocation?.display;
 
@@ -54,7 +54,7 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ approvedOrders }) => 
           <div className={styles.facilityDetails}>
             <p className={styles.facilityName}>{location}</p>
             <p className={styles.facilityName}>{approvedOrders?.careSetting?.name}</p>
-            <p className={styles.facilityName}>{t('kenya', 'Kenya')}</p>
+            <p className={styles.facilityName}>{t('uganda', 'Uganda')}</p>
           </div>
         </div>
         <div className={styles.printResults}>
