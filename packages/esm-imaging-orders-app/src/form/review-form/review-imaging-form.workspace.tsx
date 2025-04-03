@@ -72,16 +72,20 @@ const ImagingReviewForm: React.FC<ReviewOrderDialogProps> = ({ order, closeWorks
     setIsSubmitting(true);
 
     try {
-      await updateImagingProcedure(order?.procedures[0]?.uuid, { outcome: 'SUCCESSFUL' });
-      showSnackbar({
-        isLowContrast: true,
-        title: t('createResponse', 'Create Review'),
-        kind: 'success',
-        subtitle: t('pickSuccessfully', 'You have successfully created a review'),
+      const response = await updateImagingProcedure(order?.procedures[0]?.uuid, {
+        outcome: 'SUCCESSFUL',
       });
-      closeWorkspace();
-      mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/procedure'));
-      mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/order'));
+      if (response.ok) {
+        showSnackbar({
+          isLowContrast: true,
+          title: t('createResponse', 'Create Review'),
+          kind: 'success',
+          subtitle: t('pickSuccessfully', 'You have successfully created a review'),
+        });
+        closeWorkspace();
+        mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/procedure'));
+        mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/order'));
+      }
     } catch (error: any) {
       showNotification({
         title: t('errorPicking', 'Error Creating Review'),
