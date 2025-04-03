@@ -37,8 +37,10 @@ const AddImagingToWorkListModal: React.FC<AddImagingToWorkListModalProps> = ({ o
           kind: 'success',
           subtitle: t('pickSuccessfully', 'You have successfully picked an Order'),
         });
-
         closeModal();
+        mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/order'), undefined, {
+          revalidate: true,
+        });
       }
     } catch (error) {
       showNotification({

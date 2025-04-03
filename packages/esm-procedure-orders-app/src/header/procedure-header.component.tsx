@@ -15,7 +15,7 @@ export const ProcedureHeader: React.FC = () => {
       <div className={styles['left-justified-items']}>
         <ProcedureIllustration />
         <div className={styles['page-labels']}>
-          <p className={styles['page-name']}>{t('procedure', 'Procedures')}</p>
+          <p className={styles['page-name']}>{t('procedure_orders', 'Procedure Orders')}</p>
         </div>
       </div>
       <div className={styles['right-justified-items']}>
