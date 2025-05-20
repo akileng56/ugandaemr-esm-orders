@@ -24,7 +24,7 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ approvedOrders }) => 
           <p className={styles.heading}>
             {t('imagingReport', 'Imaging Report')} - {approvedOrders?.orderNumber}
           </p>
-          {logo?.src && <img className={styles.img} height={60} width={250} src={logo.src} alt={logo.alt} />}
+          {logo?.src && <img className={styles.img} height={50} width={150} src={logo.src} alt={logo.alt} />}
         </div>
         <div className={styles.printableBody}>
           <div className={styles.billDetails}>
@@ -72,7 +72,7 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ approvedOrders }) => 
         <div className={styles.printResults}>
           <p className={styles.itemHeading}>{t('impressions', 'Impressions')}</p>
           <div className={styles.reportSection}>
-            <p className={styles.itemLabel}>{approvedOrders?.procedures[0]?.procedureReason}</p>
+            <p className={styles.itemLabel}>{approvedOrders?.fulfillerComment}</p>
           </div>
         </div>
       </div>
