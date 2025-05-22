@@ -13,6 +13,7 @@ interface PrintableReportProps {
 
 const PrintableReport: React.FC<PrintableReportProps> = ({ completedOrder, ordererName }) => {
   const { t } = useTranslation();
+  const { logo } = useConfig({ externalModuleName: '@ugandaemr/esm-login-app' });
   const { sessionLocation, user } = useSession();
   const location = sessionLocation?.display;
 
@@ -23,6 +24,7 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ completedOrder, order
           <p className={styles.heading}>
             {t('procedureReport', 'Procedure Report')} - {completedOrder?.orderNumber}
           </p>
+          {logo?.src && <img className={styles.img} height={50} width={150} src={logo.src} alt={logo.alt} />}
         </div>
         <div className={styles.printableBody}>
           <div className={styles.billDetails}>
@@ -45,8 +47,8 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ completedOrder, order
                 : ' Unknown'}
             </p>
             <p className={styles.itemLabel}>
-              {t('orderDate', 'Order date')}:{' '}
-              {completedOrder?.dateActivated ? dayjs(completedOrder.dateActivated).format('YYYY-MM-DD hh:mm A') : '--'}
+              {t('date', 'Date')}:{' '}
+              {completedOrder?.dateActivated ? dayjs(completedOrder.dateActivated).format('DD-MMM-YYYY') : '--'}
             </p>
             <p className={styles.itemLabel}>
               {t('orderer', 'Orderer')}: {ordererName}
@@ -77,12 +79,6 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ completedOrder, order
             <p className={styles.itemLabel}>{completedOrder?.procedures[0]?.procedureReport}</p>
           </div>
         </div>
-        <div className={styles.printResults}>
-          <p className={styles.itemHeading}>{t('impressions', 'Impressions')}</p>
-          <div className={styles.reportSection}>
-            <p className={styles.itemLabel}>{completedOrder?.procedures[0]?.procedureReason}</p>
-          </div>
-        </div>
       </div>
 
       <section className={styles.sectionFooter}>
@@ -95,6 +91,17 @@ const PrintableReport: React.FC<PrintableReportProps> = ({ completedOrder, order
           }}>
           <span style={{ fontSize: '14px', marginBottom: '10px' }}>
             Results Reviewed / Authorized by :<span style={{ marginLeft: '50px' }}>{user?.display}</span>
+          </span>
+        </div>
+        <div
+          style={{
+            margin: '10px',
+            display: 'flex',
+            width: '500px',
+            flexDirection: 'row',
+          }}>
+          <span style={{ fontSize: '14px', marginTop: '10px' }}>
+            Sign : ............................................{' '}
           </span>
         </div>
       </section>

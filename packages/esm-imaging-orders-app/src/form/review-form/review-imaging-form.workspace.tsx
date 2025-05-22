@@ -24,7 +24,10 @@ import {
 } from '@carbon/react';
 import classNames from 'classnames';
 import { CardHeader, useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
-import { updateImagingProcedure } from '../../imaging-tabs/test-ordered/pick-imaging-order/add-to-worklist-dialog.resource';
+import {
+  updateImagingProcedure,
+  updateOrder,
+} from '../../imaging-tabs/test-ordered/pick-imaging-order/add-to-worklist-dialog.resource';
 import { DocumentAttachment } from '@carbon/react/icons';
 import { Result } from '../../imaging-tabs/work-list/work-list.resource';
 
@@ -72,19 +75,26 @@ const ImagingReviewForm: React.FC<ReviewOrderDialogProps> = ({ order, closeWorks
     setIsSubmitting(true);
 
     try {
-      const response = await updateImagingProcedure(order?.procedures[0]?.uuid, {
-        outcome: 'SUCCESSFUL',
+      const OrderUpdateResponse = await updateOrder(order.uuid, {
+        fulfillerComment: notes,
       });
-      if (response.ok) {
-        showSnackbar({
-          isLowContrast: true,
-          title: t('createResponse', 'Create Review'),
-          kind: 'success',
-          subtitle: t('pickSuccessfully', 'You have successfully created a review'),
+
+      if (OrderUpdateResponse.ok) {
+        const response = await updateImagingProcedure(order?.procedures[0]?.uuid, {
+          outcome: 'SUCCESSFUL',
         });
-        closeWorkspace();
-        mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/procedure'));
-        mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/order'));
+
+        if (response.ok) {
+          showSnackbar({
+            isLowContrast: true,
+            title: t('createResponse', 'Create Review'),
+            kind: 'success',
+            subtitle: t('pickSuccessfully', 'You have successfully created a review'),
+          });
+          closeWorkspace();
+          mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/procedure'));
+          mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/order'));
+        }
       }
     } catch (error: any) {
       showNotification({
